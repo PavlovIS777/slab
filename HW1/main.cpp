@@ -1,15 +1,20 @@
+#include "./inc/LFU.h"
 #include <iostream>
 #include <string>
-#include "inc/LFU.h"
 
 int main() {
-    long long queries;
-    std::cin >> queries;
-    LFU<std::string> cache(queries);
-    for (long long i = 0; i < queries; ++i) {
-        std::string newPage;
-        std::cin >> newPage;
-        cache.cacheLookupUpdate(newPage);
+    std::cout << "Enter cache max size: ";
+    long long n;
+    std::cin >> n;
+    LFU<std::string, long long> cache(n);
+    std::string str;
+    std::cout << "Enter requests count: ";
+    long long requests;
+    std::cin >> requests;
+    for (long long i = 0; i < requests; ++i)
+    {
+        std::cin >> str;
+        cache.cacheLookupUpdate(str);
     }
     cache.stdOutHits();
     return 0;

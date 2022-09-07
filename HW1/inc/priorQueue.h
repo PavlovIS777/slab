@@ -3,25 +3,25 @@
 
 #include <map>
 #include <array>
-
+#include <iterator>
+#include <iostream>
 
 template<typename keyT, typename T>
 class priorQueue
 {
 private:
-    int cashSize;
-    long long hits;
-    long long missHits;
-    std::map<keyT, T> pQueue;
+    long long cacheSize;
+    std::multimap<keyT, T> pQueue;
 public:
-    using pQueueIt = typename std::map<keyT, T>::iterator;
-    priorQueue(int size);
+    using pQueueIt = typename std::multimap<keyT, T>::iterator;
+    using const_pQueueIt = typename std::multimap<keyT, T>::const_iterator;
+    priorQueue(long long size);
     ~priorQueue();
-    void push(keyT prior, T data);
-    pQueueIt findByValue(T data) const;
-    pQueueIt cacheLookupUpdate(T data);
+    pQueueIt push(keyT prior, T data);
+    pQueueIt findByValue(T data);
     bool isFool() const;
-    std::array<int, 2> outputHits() const;
+    pQueueIt end();
+    void erase(pQueueIt itToDel);
 };
-
+#include "../src/priorQueue.inl"
 #endif

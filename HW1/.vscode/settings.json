@@ -27,5 +27,16 @@
     "**/.*/**",
     "**/.vscode",
     "**/.vscode/**"
-  ]
+  ],
+  "files.associations": {
+    "array": "cpp",
+    "deque": "cpp",
+    "vector": "cpp",
+    "*.tcc": "cpp",
+    "unordered_map": "cpp",
+    "fstream": "cpp",
+    "limits": "cpp",
+    "sstream": "cpp",
+    "system_error": "cpp"
+  }
 }
