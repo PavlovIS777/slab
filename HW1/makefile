@@ -52,5 +52,10 @@ PHONY.:clean
 clean:
 	rm -f $(OBJDIR)/*.o	
 	rm -f *.out
-	rm -f output.bin
 	clear
+
+TESTSDIR = tests
+PHONY.:testCache
+
+testCache:
+	python3 ./$(TESTSDIR)/generateTests.py

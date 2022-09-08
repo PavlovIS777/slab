@@ -6,22 +6,22 @@
 #include <iterator>
 #include <iostream>
 
-template<typename keyT, typename T>
+template<typename T>
 class priorQueue
 {
 private:
     long long cacheSize;
-    std::multimap<keyT, T> pQueue;
+    std::multimap<long long, T> pQueue;
 public:
-    using pQueueIt = typename std::multimap<keyT, T>::iterator;
-    using const_pQueueIt = typename std::multimap<keyT, T>::const_iterator;
+    using pQueueIt = typename std::multimap<long long, T>::iterator;
     priorQueue(long long size);
     ~priorQueue();
-    pQueueIt push(keyT prior, T data);
-    pQueueIt findByValue(T data);
+    std::pair<pQueueIt, pQueueIt> push(long long prior, T data);
     bool isFool() const;
     pQueueIt end();
     void erase(pQueueIt itToDel);
+    long long size() const;
 };
+
 #include "../src/priorQueue.inl"
 #endif

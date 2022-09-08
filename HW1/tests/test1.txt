@@ -1,0 +1,11 @@
+10 4
+abc
+cde
+efg
+abc
+abc
+abc
+abc
+abc
+abc
+abc
