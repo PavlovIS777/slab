@@ -3,7 +3,7 @@ INCDIR = inc
 SRCDIR = src 
 OBJDIR = obj
 OBJECTS = obj/main.o
-
+TESTDIR = tests
 
 OBJCOMPFLAGS = -c -g -std=c++17 -I $(INCDIR) -Wall -Wextra -Weffc++ -Wc++0x-compat -Wc++11-compat -Wc++14-compat 
 OBJCOMPFLAGS += -Waggressive-loop-optimizations -Walloc-zero -Walloca -Walloca-larger-than=8192 -Warray-bounds 
@@ -50,7 +50,8 @@ program.out: $(OBJECTS)
 PHONY.:clean
 
 clean:
-	rm -f $(OBJDIR)/*.o	
+	rm -f $(OBJDIR)/*.o
+	rm -f $(TESTDIR)/*.txt
 	rm -f *.out
 	clear
 
