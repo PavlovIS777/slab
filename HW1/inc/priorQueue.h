@@ -3,20 +3,19 @@
 
 #include <map>
 #include <array>
-#include <iterator>
-#include <iostream>
 
-template<typename T>
+template<typename keyT, typename T>
 class priorQueue
 {
 private:
     long long cacheSize;
-    std::multimap<long long, T> pQueue;
+    std::multimap<keyT, T> pQueue;
 public:
-    using pQueueIt = typename std::multimap<long long, T>::iterator;
+    using pQueueIt = typename std::multimap<keyT, T>::iterator;
     priorQueue(long long size);
     ~priorQueue();
-    std::pair<pQueueIt, pQueueIt> push(long long prior, T data);
+    std::pair<pQueueIt, T> poppush(keyT prior, T data);
+    pQueueIt push(keyT prior, T data);
     bool isFool() const;
     pQueueIt end();
     void erase(pQueueIt itToDel);

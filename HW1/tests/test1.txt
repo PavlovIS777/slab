@@ -1,11 +1,9 @@
-10 4
-abc
-cde
-efg
-abc
-abc
-abc
-abc
-abc
-abc
-abc
+8 6
+ftfviwatcnjbhcbafuikafuvdwoily
+saaaaaaaaaaaaaaaaaaaaaaaaaaaa
+asklsalkjlkasjklsajjksaasjsas
+jaksljsakljasjkljaklsjklsajalskj
+ajksaaskljaskljklsajklaslkjassal
+asasakasjknjam
+ftfviwatcnjbhcbafuikafuvdwoily
+hhdjdhjshkdshkjdsh

@@ -59,3 +59,12 @@ PHONY.:testCache
 
 testCache:
 	python3 ./$(TESTSDIR)/generateTests.py
+
+PHONY.:memcheck
+memcheck:
+	valgrind --leak-check=full \
+    --show-leak-kinds=all \
+    --track-origins=yes \
+    --verbose \
+    --log-file=valgrind-out.txt \
+    ./a.out
