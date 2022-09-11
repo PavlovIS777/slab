@@ -1,3 +1,24 @@
+/*
+                                ______________________________
+                                |Priority Queue implementation|
+                                ..............................
+                                    Author: Ivan Pavlov
+                                    Date: 11.09.2022
+
+*/
+/* 
+                                @@@ Descriptoin @@@
+        - pQueue:   Priority Queue based on stl::multimap. Templates first parameter is
+                keyT - custom type of priority. Second - T-data of queue, user's data.
+*/
+
+/*
+                                    TO USE IT:
+        1)      Create class with your custom types
+        2)      Use pop/push and etc. functions to store your data.
+            Queue sort it by priority.
+*/
+
 #ifndef PQUEUE_H
 #define PQUEUE_H
 
@@ -17,7 +38,7 @@ public:
     std::pair<pQueueIt, T> poppush(keyT prior, T data);
     pQueueIt push(keyT prior, T data);
     bool isFool() const;
-    pQueueIt end();
+    pQueueIt end() const;
     void erase(pQueueIt itToDel);
     long long size() const;
 };

@@ -2,7 +2,8 @@
 #include <iostream>
 #ifndef LFU_INL
 #define LFU_INL
-template<typename T> LFU<T>::LFU(long long size): cache(size), hits(0), cacheSize(size), requestIndex(0){}
+// Default LFU-ctor. Initialize variables by zero.
+template<typename T> LFU<T>::LFU(long long size): cache(size), hits_(0), cacheSize(size), requestIndex(0){}
 
 template<typename T> LFU<T>::~LFU(){}
 
@@ -30,13 +31,12 @@ template<typename T> void LFU<T>::cacheLookupUpdate(T data) {
         auto newDataIt = this->cache.push(std::pair<long long, long long>(newPrior, index), data);
         this->hashTab.erase(data);
         this->hashTab.emplace(data, newDataIt);
-        this->hits++;
+        this->hits_++;
     }
 }
 
-template<typename T> void LFU<T>::stdOutHits() {
-    std::cout << "Hits: " << this->hits; 
+template<typename T> long long LFU<T>::hits() const{
+    return this->hits_;
 }
-
 
 #endif

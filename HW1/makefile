@@ -3,7 +3,7 @@ INCDIR = inc
 SRCDIR = src 
 OBJDIR = obj
 OBJECTS = obj/main.o
-TESTDIR = tests
+TESTSDIR = testSys
 
 OBJCOMPFLAGS = -c -g -std=c++17 -I $(INCDIR) -Wall -Wextra -Weffc++ -Wc++0x-compat -Wc++11-compat -Wc++14-compat 
 OBJCOMPFLAGS += -Waggressive-loop-optimizations -Walloc-zero -Walloca -Walloca-larger-than=8192 -Warray-bounds 
@@ -40,7 +40,7 @@ COMPFLAGS += -fsized-deallocation -fstrict-overflow
 COMPFLAGS += -flto-odr-type-merging -fno-omit-frame-pointer
 
 #task for default cache. *.inl files don't need to be compiled to objects btw.
-dCache: program.out
+cache: program.out
 $(OBJDIR)/main.o: main.cpp
 	$(CC) $(OBJCOMPFLAGS) $^ -o $@
 
@@ -49,16 +49,18 @@ program.out: $(OBJECTS)
 
 PHONY.:clean
 
+driver: driver.cpp
+	$(CC) $^ -o drive.out
 clean:
 	rm -f $(OBJDIR)/*.o
-	rm -f $(TESTDIR)/*.txt
+	rm -f $(TESTSDIR)/randTests/*.txt
 	rm -f *.out
+	rm -f *.o
 	clear
 
-TESTSDIR = tests
 PHONY.:testCache
 
-testCache:
+testCache: 
 	python3 ./$(TESTSDIR)/generateTests.py
 
 PHONY.:memcheck

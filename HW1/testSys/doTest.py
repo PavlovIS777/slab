@@ -2,6 +2,7 @@ import queue
 import os.path
 import heapq
 import time
+from tqdm import tqdm
 def find(cache, m):
     for i in range(len(cache)):
         for j in range(len(cache[i])):
@@ -13,16 +14,16 @@ def find(cache, m):
     return [-1, -1]
 
 testNum = 1
-while(os.path.isfile("./tests/test"+str(testNum)+".txt")):
-    testPath = "./tests/test"+str(testNum)+".txt"
-    with open('./tests/test'+str(testNum)+'.txt', 'r') as my_file:
+while(os.path.isfile("./testSys/randTests/test"+str(testNum)+".txt")):
+    testPath = "./testSys/randTests/test"+str(testNum)+".txt"
+    with open('./testSys/randTests/test'+str(testNum)+'.txt', 'r') as my_file:
         lines = my_file.readlines()
         inputSize = lines[0].split()
-        testCnt = int(inputSize[0])
-        cacheSize = int(inputSize[1])
+        cacheSize = int(inputSize[0])
+        testCnt = int(inputSize[1])
         Hits = 0
         cache = []
-        for i in range(1, testCnt+1):
+        for i in tqdm(range(1, testCnt+1)):
             curtime = time.time()
             elem = find(cache, lines[i])
             if  elem[0] != -1:
@@ -36,6 +37,8 @@ while(os.path.isfile("./tests/test"+str(testNum)+".txt")):
                     heapq.heappop(cache)
                 heapq.heappush(cache, ((1, curtime), lines[i]))
                 heapq.heapify(cache)
+        print()
         print("test#"+str(testNum)+": "+str(Hits)+" for data from "+testPath)
+        print()
     testNum += 1
 

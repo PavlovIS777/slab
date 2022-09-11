@@ -27,7 +27,7 @@ template<typename keyT, typename T> bool priorQueue<keyT, T>::isFool() const {
     return this->cacheSize == this->pQueue.size();
 }
 
-template<typename keyT, typename T> typename priorQueue<keyT, T>::pQueueIt priorQueue<keyT, T>::end() {
+template<typename keyT, typename T> typename priorQueue<keyT, T>::pQueueIt priorQueue<keyT, T>::end() const {
     return this->pQueue.end();
 }
 
