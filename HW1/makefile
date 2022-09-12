@@ -4,7 +4,7 @@ SRCDIR = src
 OBJDIR = obj
 OBJECTS = obj/main.o
 TESTSDIR = testSys
-
+#flags
 OBJCOMPFLAGS = -c -g -std=c++17 -I $(INCDIR) -O2
 COMPFLAGS = -std=c++17 -g -I $(INCDIR) -O2
 
