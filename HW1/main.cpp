@@ -1,4 +1,4 @@
-#include "./inc/LFU.h"
+#include "LFU.h"
 #include <iostream>
 #include <string>
 

@@ -1,7 +1,6 @@
 #ifndef PQUEUE_INL
 #define PQUEUE_INL
 
-#include "../inc/priorQueue.h"
 #include <iostream>
 
 template<typename keyT, typename T> priorQueue<keyT, T>::priorQueue(long long size): cacheSize(size){}

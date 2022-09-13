@@ -43,5 +43,5 @@ public:
     long long size() const;
 };
 
-#include "../src/priorQueue.inl"
+#include "priorQueue.inl"
 #endif

@@ -47,5 +47,6 @@ public:
     void cacheLookupUpdate(T data);
     long long hits() const;
 };
-#include "../src/LFU.inl"
+
+#include "LFU.inl"
 #endif

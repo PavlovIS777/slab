@@ -41,4 +41,3 @@ while(os.path.isfile("./testSys/randTests/test"+str(testNum)+".txt")):
         print("test#"+str(testNum)+": "+str(Hits)+" for data from "+testPath)
         print()
     testNum += 1
-

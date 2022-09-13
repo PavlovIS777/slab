@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "./inc/LFU.h"
+#include "LFU.h"
 #define iCache
 #ifdef TEST
 int main() {
