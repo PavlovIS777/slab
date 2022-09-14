@@ -2,26 +2,26 @@
 #ifndef LFU_INL
 #define LFU_INL
 // Default LFU-ctor. Initialize variables by zero.
-template<typename T> LFU<T>::LFU(long long size): cache(size), hits_(0), cacheSize(size), requestIndex(0){}
+template<typename T> LFU<T>::LFU(long long size): cache(size), hits_(0), cacheSize_(size), requestIndex_(0){}
 
 template<typename T> LFU<T>::~LFU(){}
 
 template<typename T> bool LFU<T>::isFull() const {
-    return this->maxSize == this->cache.size();
+    return cacheSize_ == cache.size();
 }
 
 template<typename T> void LFU<T>::cacheLookupUpdate(T data) {
     auto isInCache = this->hashTab.find(data);
     if (isInCache == this->hashTab.end()) {
-        if (this->cache.size() == this->cacheSize) {
-            auto pushResultPair = this->cache.poppush(std::pair<long long, long long>(1ll, this->requestIndex), data);
+        if (this->cache.size() == this->cacheSize_) {
+            auto pushResultPair = this->cache.poppush(std::pair<long long, long long>(1ll, this->requestIndex_), data);
             this->hashTab.erase(pushResultPair.second);
             this->hashTab.emplace(data, pushResultPair.first);
         } else {
-            auto pushResultPair = this->cache.push(std::pair<long long, long long>(1ll, this->requestIndex), data);
+            auto pushResultPair = this->cache.push(std::pair<long long, long long>(1ll, this->requestIndex_), data);
             this->hashTab.emplace(data, pushResultPair);
         }
-        this->requestIndex++;
+        this->requestIndex_++;
     } else {
         auto qIt = isInCache->second;
         long long newPrior = (qIt->first).first + 1;
@@ -35,7 +35,7 @@ template<typename T> void LFU<T>::cacheLookupUpdate(T data) {
 }
 
 template<typename T> long long LFU<T>::hits() const{
-    return this->hits_;
+    return hits_;
 }
 
 #endif

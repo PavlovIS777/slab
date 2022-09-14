@@ -34,8 +34,8 @@ class LFU
 {
 private:
     long long hits_;
-    long long cacheSize;
-    long long requestIndex;
+    long long cacheSize_;
+    long long requestIndex_;
     using queueIt = typename std::multimap<std::pair<long long, long long>, T>::iterator;
     priorQueue<std::pair<long long, long long>, T> cache;
     using cacheData = typename std::pair<long long, T>;

@@ -15,27 +15,27 @@ template<typename keyT, typename T> std::pair<typename priorQueue<keyT, T>::pQue
 }
 
 template<typename keyT, typename T> typename priorQueue<keyT, T>::pQueueIt priorQueue<keyT, T>::push(keyT prior, T data) {
-    return this->pQueue.emplace(prior, data);
+    return pQueue.emplace(prior, data);
 }
 
 template<typename keyT, typename T> bool priorQueue<keyT, T>::isFool() const {
-    if (this->cacheSize < this->pQueue.size()) {
+    if (cacheSize < pQueue.size()) {
         std::cout << "wrong cache size";
         return 1;
     }
-    return this->cacheSize == this->pQueue.size();
+    return cacheSize == pQueue.size();
 }
 
 template<typename keyT, typename T> typename priorQueue<keyT, T>::pQueueIt priorQueue<keyT, T>::end() const {
-    return this->pQueue.end();
+    return pQueue.end();
 }
 
 template<typename keyT, typename T> void priorQueue<keyT, T>::erase(priorQueue<keyT, T>::pQueueIt itToDel) {
-    this->pQueue.erase(itToDel);    
+    pQueue.erase(itToDel);    
 }
 
 template<typename keyT, typename T> long long priorQueue<keyT, T>::size() const {
-    return this->pQueue.size();
+    return pQueue.size();
 }
 
 #endif
