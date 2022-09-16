@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/line3d.hpp
+vector3d.hpp
+../inc/vector3d.hpp
+vector
+-
+../src/line3d.inl
+../src/line3d.inl
+
+../inc/vector3d.hpp
+vector3d.inl
+../inc/vector3d.inl
+
+../src/line3d.inl
+../inc/line3d.hpp
+../inc/line3d.hpp
+
+../src/vector3d.inl
+vector3d.hpp
+../src/vector3d.hpp
+iostream
+-
+math.h
+-
+limits
+-
+
+/home/monkey/proj/slab/HW2/TriangleIntersaction.cpp
+iostream
+-
+vector3d.hpp
+/home/monkey/proj/slab/HW2/vector3d.hpp
+line3d.hpp
+/home/monkey/proj/slab/HW2/line3d.hpp
+

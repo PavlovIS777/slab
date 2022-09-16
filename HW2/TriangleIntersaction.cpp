@@ -1,8 +1,8 @@
 ﻿// Triangle Intersaction.cpp : Defines the entry point for the application.
 //
 #include <iostream>
-#include "./inc/vector3d.hpp"
-#include "./inc/line3d.hpp"
+#include "vector3d.hpp"
+#include "line3d.hpp"
 
 int main()
 {

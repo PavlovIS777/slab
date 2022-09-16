@@ -29,15 +29,14 @@ template<typename keyT, typename T>
 class priorQueue
 {
 private:
-    long long cacheSize;
+    long long cacheSize_;
     std::multimap<keyT, T> pQueue;
 public:
     using pQueueIt = typename std::multimap<keyT, T>::iterator;
     priorQueue(long long size);
-    ~priorQueue();
     std::pair<pQueueIt, T> poppush(keyT prior, T data);
     pQueueIt push(keyT prior, T data);
-    bool isFool() const;
+    bool isFull() const;
     pQueueIt end() const;
     void erase(pQueueIt itToDel);
     long long size() const;

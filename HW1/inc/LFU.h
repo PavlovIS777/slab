@@ -42,7 +42,6 @@ private:
     std::unordered_map<T, queueIt> hashTab;
 public:
     LFU(long long size);
-    ~LFU();
     bool isFull() const;
     void cacheLookupUpdate(T data);
     long long hits() const;
