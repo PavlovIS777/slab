@@ -4,3 +4,4 @@ cd build
 cmake ..
 make idcache
 make cachelfu
+python3 ./testSys/generateTests.py
