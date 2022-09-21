@@ -1,7 +1,6 @@
+#pragma once
 #include <iostream>
-#ifndef LFU_INL
-#define LFU_INL
-// Default LFU-ctor. Initialize variables by zero.
+
 template<typename T> LFU<T>::LFU(long long size): cache(size), hits_(0), cacheSize_(size), requestIndex_(0){}
 
 template<typename T> bool LFU<T>::isFull() const {
@@ -35,5 +34,3 @@ template<typename T> void LFU<T>::cacheLookupUpdate(T data) {
 template<typename T> long long LFU<T>::hits() const{
     return hits_;
 }
-
-#endif

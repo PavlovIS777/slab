@@ -1,6 +1,4 @@
-#ifndef PQUEUE_INL
-#define PQUEUE_INL
-
+#pragma once
 #include <iostream>
 
 template<typename keyT, typename T> priorQueue<keyT, T>::priorQueue(long long size): cacheSize_(size){}
@@ -35,5 +33,3 @@ template<typename keyT, typename T> void priorQueue<keyT, T>::erase(priorQueue<k
 template<typename keyT, typename T> long long priorQueue<keyT, T>::size() const {
     return pQueue.size();
 }
-
-#endif

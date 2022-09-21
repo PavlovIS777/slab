@@ -1,7 +1,5 @@
-#ifndef ICACHE_INL
-#define ICACHE_INL
-
-#include "./idealCache.h"
+#pragma once
+#include <list>
 
 template<typename T> void idealCache<T>::push(long long index, T data) {
     if (this->cacheSize_ == this->cache.size()) {
@@ -9,43 +7,75 @@ template<typename T> void idealCache<T>::push(long long index, T data) {
     }
 }
 
-template<typename T> idealCache<T>::idealCache(long long cacheSize, std::vector<T> requests): hits_(0), cacheSize_(cacheSize), 
-curInDataIndex(0), requests(requests) {}
+template<typename T> idealCache<T>::idealCache(long long cacheSize, const std::vector<T>& requests_): hits_(0ll), cacheSize_(cacheSize), 
+curInDataIndex_(0), requests(requests_) {
+    for (long long i = 0; i < requests.size(); ++i) {
+        if (predictor.find(requests[i]) == predictor.end()) {
+            std::list<long long> lst;
+            lst.push_back(i);
+            predictor.emplace(requests[i], lst);//выкинуть
+        } else {
+            predictor[requests[i]].push_back(i);
+        }
+    }
+}
 
 template<typename T> idealCache<T>::~idealCache() {}
 
-template<typename T> void idealCache<T>::cacheLookupUpdate(T data) {
-    long long index = 0;
-    if (this->cache.size() < this->cacheSize_)
-    {
-        this->cache.push_back(requests[this->curInDataIndex]);
-        this->curInDataIndex++;
+template<typename T> void idealCache<T>::updatePredictor(T data) {
+    while (predictor[data].size() > 0 and predictor[data].front() <= curInDataIndex_) {
+        predictor[data].pop_front();
     }
-    else if ((index = this->findData(data)) != -1) {
-        this->curInDataIndex++;
-        this->hits_++;
-    } else {
-        this->curInDataIndex++;
-        long long repeatDataIndex = -1;
-        if ((repeatDataIndex = this->findDataInRequests(data)) == -1)
-            return;
-        this->curInDataIndex--;
-        std::pair<long long, long long> dataToDel = {-1ll, -1ll};
-        for (long long i = 0; i < this->cacheSize_; ++i) {
-            long long delIndex = -1;
-            if (dataToDel.first < (delIndex = this->findDataInRequests(this->cache[i]))) {
-                dataToDel.first = delIndex;
-                dataToDel.second = i;
+    if (predictor[data].size() == 0) {
+        predictor[data].push_back(INT64_MAX);
+    }
+}
+
+template<typename T> void idealCache<T>::updateCacheList(typename idealCache<T>::cacheIt it) {
+    auto cpyDataIt = it->second;
+    hashtab.erase(hashtab.find(cpyDataIt->first));
+    cache.erase(it);
+    auto pIt = predictor.find(cpyDataIt->first);
+    auto nHashIt = cache.emplace(pIt->second, pIt);
+    hashtab[cpyDataIt->first] = nHashIt;
+}
+
+template<typename T> void idealCache<T>::cacheLookupUpdate() {
+    auto data = requests[curInDataIndex_];
+    auto hashIt = hashtab.find(data);
+    if (hashIt != hashtab.end()) {
+        updatePredictor(data);
+        updateCacheList(hashIt->second);
+        ++hits_;
+    }
+    else if (cache.size() < cacheSize_)
+    {
+        updatePredictor(data);
+        if (predictor[data].front() != INT64_MAX) {
+        auto pIt = predictor.find(data);
+        auto cIt = cache.emplace(pIt->second, pIt);
+        hashtab[pIt->first] = cIt;
+        }
+    }
+    else {
+        updatePredictor(data);
+        long long maxDist = predictor[data].front();
+        auto maxDistIt = cache.end();
+        if (maxDist != INT64_MAX) {
+            if (cache.begin()->first.front() > maxDist) {
+                maxDistIt = cache.begin();
+            }
+            if (maxDistIt != cache.end()) {
+                hashtab.erase(hashtab.find(cache.begin()->second->first));
+                cache.erase(maxDistIt);
+                auto pIt = predictor.find(data);
+                auto cIt = cache.emplace(pIt->second, pIt);
+                hashtab[pIt->first] = cIt;
             }
         }
-        this->curInDataIndex++;
-        if (repeatDataIndex > dataToDel.first) {
-            
-            return;
-        }
-        this->cache[dataToDel.second] = data;
-        //this->curInDataIndex++;
     }
+
+    ++curInDataIndex_;
 }
 template<typename T> long long idealCache<T>::findData(T data) {
     for (long long i = 0; i < this->cacheSize_; ++i) {
@@ -66,7 +96,3 @@ template<typename T> long long idealCache<T>::findDataInRequests(T data){
 template<typename T> long long idealCache<T>::hits() {
     return this->hits_;
 }
-
-
-
-#endif

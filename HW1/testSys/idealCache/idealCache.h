@@ -24,31 +24,49 @@
         3) After all requests cache will calculate hits.
 */
 
-
+#pragma once
 
 
 #include <vector>
+#include <list>
+#include <map>
+#include <unordered_map>
 
-#ifndef ICACHE_H
-#define ICACHE_H
+
+struct idealCacheComparator
+{
+    bool operator()(const std::list<long long>& lhv, const std::list<long long>& rhv) const{
+        return lhv.front() > rhv.front();
+    }
+};
+
 
 template<typename T> 
 class idealCache {
     private:
+    
+    using predictorIt = typename std::map<T, std::list<long long>>::iterator;
+    using cacheIt = typename std::multimap<std::list<long long>, predictorIt, idealCacheComparator>::iterator;
     long long hits_;
     long long cacheSize_;
-    long long curInDataIndex;
+    long long curInDataIndex_;
     std::vector<T> requests;
-    std::vector<T> cache;
+
+    std::multimap<std::list<long long>, predictorIt, idealCacheComparator> cache;
+
+    std::map<T, std::list<long long>> predictor;
+    std::unordered_map<T, cacheIt> hashtab;
     public:
-    idealCache(long long cacheSize, std::vector<T> requests);
+
+    idealCache(long long cacheSize, const std::vector<T>& requests);
     ~idealCache();
     void push(long long index, T data);
     long long findData(T data);
-    void cacheLookupUpdate(T data);
+    void cacheLookupUpdate();
     long long findDataInRequests(T data);
     long long hits();
+    void updatePredictor(T data);
+    void updateCacheList(cacheIt it);
 };
 
-#include "./idealCache.inl"
-#endif
+#include "idealCache.inl"

@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/monkey/inf/slab/HW1/testSys/idealCache/iCache.cpp
+idealCache.h
+/home/monkey/inf/slab/HW1/testSys/idealCache/idealCache.h
+vector
+-
+string
+-
+fstream
+-
+iostream
+-
+chrono
+-
+
+/home/monkey/inf/slab/HW1/testSys/idealCache/idealCache.h
+vector
+-
+list
+-
+map
+-
+unordered_map
+-
+./idealCache.inl
+/home/monkey/inf/slab/HW1/testSys/idealCache/idealCache.inl
+
+/home/monkey/inf/slab/HW1/testSys/idealCache/idealCache.inl
+./idealCache.h
+/home/monkey/inf/slab/HW1/testSys/idealCache/idealCache.h
+list
+-
+assert.h
+-
+
