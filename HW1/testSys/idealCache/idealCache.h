@@ -31,7 +31,7 @@
 #include <list>
 #include <map>
 #include <unordered_map>
-
+#include <set>
 
 struct idealCacheComparator
 {
@@ -51,7 +51,7 @@ class idealCache {
     long long cacheSize_;
     long long curInDataIndex_;
     std::vector<T> requests;
-
+    std::set<T> testSet;
     std::multimap<std::list<long long>, predictorIt, idealCacheComparator> cache;
 
     std::map<T, std::list<long long>> predictor;
@@ -59,13 +59,9 @@ class idealCache {
     public:
 
     idealCache(long long cacheSize, const std::vector<T>& requests);
-    ~idealCache();
-    void push(long long index, T data);
-    long long findData(T data);
     void cacheLookupUpdate();
-    long long findDataInRequests(T data);
     long long hits();
-    void updatePredictor(T data);
+    int updatePredictor(T data);
     void updateCacheList(cacheIt it);
 };
 

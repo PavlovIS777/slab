@@ -4,6 +4,5 @@ project(LFU)
 include_directories(inc src testSys/idealCache)
 add_compile_options(-std=c++17 -O2)
 
-add_executable(cachelfu main.cpp)
-add_executable(driver driver.cpp)
-add_executable(idcache testSys/idealCache/iCache.cpp)
+add_executable(cachelfu driver_LFU_Cache.cpp)
+add_executable(idcache driver_Ideal_Cache.cpp)
