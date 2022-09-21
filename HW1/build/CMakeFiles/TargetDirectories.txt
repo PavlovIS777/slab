@@ -1,5 +1,0 @@
-/home/monkey/inf/slab/HW1/build/CMakeFiles/rebuild_cache.dir
-/home/monkey/inf/slab/HW1/build/CMakeFiles/edit_cache.dir
-/home/monkey/inf/slab/HW1/build/CMakeFiles/idcache.dir
-/home/monkey/inf/slab/HW1/build/CMakeFiles/driver.dir
-/home/monkey/inf/slab/HW1/build/CMakeFiles/cachelfu.dir
