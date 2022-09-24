@@ -16,6 +16,6 @@ int main() {
     }
     auto end = std::chrono::steady_clock::now();
     auto elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
-    std::cout << "Test #1    ||   Elapsed Time:    " << elapsed_ms.count() << "     ||     Hits:    " << cache.hits() << std::endl;
+    std::cout << "Test #1    ||   Elapsed Time:    " << elapsed_ms.count() << "     ||    Hits:    " << cache.hits() << std::endl;
     return 0;
 }
