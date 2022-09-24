@@ -1,7 +1,7 @@
 #pragma once
 #include <list>
 
-template<typename T> idealCache<T>::idealCache(long long cacheSize, const std::vector<T>& requests_): hits_(0ll), cacheSize_(cacheSize), 
+template<typename T> idealCache<T>::idealCache(long long cacheSize, const std::vector<T>& requests_): cacheSize_(cacheSize), 
 curInDataIndex_(0), requests(requests_) {
     for (long long i = 0; i < requests.size(); ++i)
         predictor[requests[i]].push_back(i);
@@ -11,9 +11,6 @@ template<typename T> int idealCache<T>::updatePredictor(T data) {
     while (predictor[data].size() > 0 and predictor[data].front() <= curInDataIndex_) {
         predictor[data].pop_front();
     }
-    // if (predictor[data].size() == 0) {
-    //     predictor[data].push_back(INT64_MAX);
-    // }
     if (predictor[data].size() == 0) {
         auto pIt = predictor.find(data);
         hashtab.erase(data);
@@ -33,13 +30,13 @@ template<typename T> void idealCache<T>::updateCacheList(typename idealCache<T>:
     hashtab[cpyDataIt->first] = nHashIt;
 }
 
-template<typename T> void idealCache<T>::cacheLookupUpdate() {
+template<typename T> bool idealCache<T>::cacheLookupUpdate() {
     auto data = requests[curInDataIndex_];
     auto hashIt = hashtab.find(data);
     if (hashIt != hashtab.end()) {
         if(updatePredictor(data))
             updateCacheList(hashIt->second);
-        ++hits_;
+        return true;
     }
     else if (cache.size() < cacheSize_)
     {
@@ -67,10 +64,6 @@ template<typename T> void idealCache<T>::cacheLookupUpdate() {
             }
         }
     }
-
     ++curInDataIndex_;
-}
-
-template<typename T> long long idealCache<T>::hits() {
-    return this->hits_;
+    return false;
 }

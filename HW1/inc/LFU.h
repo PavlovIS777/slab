@@ -20,32 +20,29 @@
         2) Then call "cacheLookupUpdate". Put in new data-request as argument
         3) After all requests cache will calculate hits.
 */
-
+#pragma once
 #include <list>
 #include <unordered_map>
 #include <queue>
 #include "priorQueue.h"
 
-#ifndef LFU_H
-#define LFU_H
+namespace Cache {
 
-template<typename T> 
+template<typename T, typename keyT = int> 
 class LFU
 {
 private:
-    long long hits_;
     long long cacheSize_;
     long long requestIndex_;
     using queueIt = typename std::multimap<std::pair<long long, long long>, T>::iterator;
     priorQueue<std::pair<long long, long long>, T> cache;
+    
     using cacheData = typename std::pair<long long, T>;
     std::unordered_map<T, queueIt> hashTab;
 public:
     LFU(long long size);
     bool isFull() const;
-    void cacheLookupUpdate(T data);
-    long long hits() const;
+    template<typename F> bool cacheLookupUpdate(keyT key, F slow_get_page);
 };
-
 #include "LFU.inl"
-#endif
+}

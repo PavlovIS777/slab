@@ -47,11 +47,9 @@ class idealCache {
     
     using predictorIt = typename std::map<T, std::list<long long>>::iterator;
     using cacheIt = typename std::multimap<std::list<long long>, predictorIt, idealCacheComparator>::iterator;
-    long long hits_;
     long long cacheSize_;
     long long curInDataIndex_;
     std::vector<T> requests;
-    std::set<T> testSet;
     std::multimap<std::list<long long>, predictorIt, idealCacheComparator> cache;
 
     std::map<T, std::list<long long>> predictor;
@@ -59,8 +57,7 @@ class idealCache {
     public:
 
     idealCache(long long cacheSize, const std::vector<T>& requests);
-    void cacheLookupUpdate();
-    long long hits();
+    bool cacheLookupUpdate();
     int updatePredictor(T data);
     void updateCacheList(cacheIt it);
 };
