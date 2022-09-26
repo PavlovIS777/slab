@@ -12,21 +12,21 @@ template<typename T, typename keyT> template<typename F> bool  Cache::LFU<T, key
     if (isInCache == hashTab.end()) {
         T data = slow_get_page(key);
         if (cache.size() == cacheSize_) {
-            auto pushResultPair = cache.poppush(std::pair<long long, long long>(1ll, requestIndex_), data);
-            hashTab.erase(pushResultPair.second);
+            auto pushResultPair = cache.poppush({1ll, requestIndex_}, {data, key});
+            hashTab.erase(pushResultPair.second.second);
             hashTab.emplace(key, pushResultPair.first);
         } else {
-            auto pushResultPair = cache.push(std::pair<long long, long long>(1ll, requestIndex_), data);
+            auto pushResultPair = cache.push({1ll, requestIndex_}, {data, key});
             hashTab.emplace(key, pushResultPair);
         }
         requestIndex_++;
     } else {
         auto qIt = isInCache->second;
-        T data = qIt->second;
+        T data = qIt->second.first;
         long long newPrior = (qIt->first).first + 1;
         long long index = (qIt->first).second;
         cache.erase(qIt);
-        auto newDataIt = cache.push(std::pair<long long, long long>(newPrior, index), data);
+        auto newDataIt = cache.push({newPrior, index}, {data, key});
         hashTab.erase(key);
         hashTab.emplace(key, newDataIt);
         return true;

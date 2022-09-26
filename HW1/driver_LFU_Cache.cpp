@@ -29,7 +29,7 @@ int main(int argc, char* argv[]) {
     if (argc > 1 and std::string(argv[1]) == flag) {
         std::cout << "Test #1    ||   Elapsed Time:    " << elapsed_ms.count() << "     ||    Hits:    " << hits << std::endl;
     } else {
-        std::cout << hits;
+        std::cout << hits << std::endl;
     }
     return 0;
 }

@@ -36,6 +36,7 @@ template<typename T> bool idealCache<T>::cacheLookupUpdate() {
     if (hashIt != hashtab.end()) {
         if(updatePredictor(data))
             updateCacheList(hashIt->second);
+        ++curInDataIndex_;
         return true;
     }
     else if (cache.size() < cacheSize_)
@@ -47,21 +48,18 @@ template<typename T> bool idealCache<T>::cacheLookupUpdate() {
         hashtab[pIt->first] = cIt;
         }
     }
-    else {
-        updatePredictor(data);
+    else if (updatePredictor(data)) {
         long long maxDist = predictor[data].front();
         auto maxDistIt = cache.end();
-        if (maxDist != INT64_MAX) {
-            if (cache.begin()->first.front() > maxDist) {
-                maxDistIt = cache.begin();
-            }
-            if (maxDistIt != cache.end()) {
-                hashtab.erase(hashtab.find(cache.begin()->second->first));
-                cache.erase(maxDistIt);
-                auto pIt = predictor.find(data);
-                auto cIt = cache.emplace(pIt->second, pIt);
-                hashtab[pIt->first] = cIt;
-            }
+        if (cache.begin()->first.front() > maxDist) {
+            maxDistIt = cache.begin();
+        }
+        if (maxDistIt != cache.end()) {
+            hashtab.erase(hashtab.find(cache.begin()->second->first));
+            cache.erase(maxDistIt);
+            auto pIt = predictor.find(data);
+            auto cIt = cache.emplace(pIt->second, pIt);
+            hashtab[pIt->first] = cIt;
         }
     }
     ++curInDataIndex_;

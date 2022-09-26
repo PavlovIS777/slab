@@ -34,11 +34,9 @@ class LFU
 private:
     long long cacheSize_;
     long long requestIndex_;
-    using queueIt = typename std::multimap<std::pair<long long, long long>, T>::iterator;
-    priorQueue<std::pair<long long, long long>, T> cache;
-    
-    using cacheData = typename std::pair<long long, T>;
-    std::unordered_map<T, queueIt> hashTab;
+    using queueIt = typename std::multimap<std::pair<long long, long long>, std::pair<T, keyT>>::iterator;
+    priorQueue<std::pair<long long, long long>, std::pair<T, keyT>> cache;
+    std::unordered_map<keyT, queueIt> hashTab;
 public:
     LFU(long long size);
     bool isFull() const;
