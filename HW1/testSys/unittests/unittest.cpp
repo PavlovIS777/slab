@@ -1,16 +1,18 @@
 #include "LFU.h"
 #include <iostream>
 #include <array>
-struct page_t {
-  int id;
-  std::array<char, 60> data;
-} page;
 
-std::array<char, 60> slow_get_page(int id) {
-    return page.data;
+namespace PAGE {
+    struct page_t {
+        int id;
+        std::array<char, 60> data;
+    };
+    page_t page;
+
+    std::array<char, 60> slow_get_page(int id) {
+        return page.data;
+    }
 }
-
-
 
 int main (int argc, char* argv[]) {
     long long cacheSize, testCnt;
@@ -19,10 +21,10 @@ int main (int argc, char* argv[]) {
     std::string newStr;
     long long hits = 0;
     for (long long i = 0; i < testCnt; ++i) {
-        std::cin >> page.id;
+        std::cin >> PAGE::page.id;
         std::cin >> newStr;
-        std::copy(newStr.begin(), newStr.end(), page.data.data());
-        if (cache.cacheLookupUpdate(page.id, slow_get_page)) {
+        std::copy(newStr.begin(), newStr.end(), PAGE::page.data.data());
+        if (cache.cacheLookupUpdate(PAGE::page.id, PAGE::slow_get_page)) {
             ++hits;
         }
     }
