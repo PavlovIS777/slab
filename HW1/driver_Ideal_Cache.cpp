@@ -14,7 +14,7 @@ int main (int argc, char* argv[]) {
         std::cin >> newTest;
         req.push_back(newTest);
     }
-    idealCache<std::string> cache(cacheSize, req);
+    iCache::idealCache<std::string> cache(cacheSize, req);
     auto begin = std::chrono::steady_clock::now();
     long long hits = 0;
     for (int k = 0; k < testCnt; ++k) {
@@ -27,7 +27,7 @@ int main (int argc, char* argv[]) {
         auto elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
         std::cout << "Test #1    ||    Elapsed Time:    " << elapsed_ms.count() << "    ||    Hits:    " << hits << std::endl;
     } else {
-        std::cout << hits;
+        std::cout << hits << std::endl;
     }
     return 0;
 }

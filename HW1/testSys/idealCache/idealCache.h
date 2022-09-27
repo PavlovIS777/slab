@@ -31,7 +31,7 @@
 #include <list>
 #include <map>
 #include <unordered_map>
-#include <set>
+
 
 struct idealCacheComparator
 {
@@ -40,26 +40,28 @@ struct idealCacheComparator
     }
 };
 
-
+namespace iCache {
 template<typename T> 
 class idealCache {
     private:
     
     using predictorIt = typename std::map<T, std::list<long long>>::iterator;
     using cacheIt = typename std::multimap<std::list<long long>, predictorIt, idealCacheComparator>::iterator;
+    using hashIt = typename std::unordered_map<T, cacheIt>::iterator;
     long long cacheSize_;
-    long long curInDataIndex_;
     std::vector<T> requests;
     std::multimap<std::list<long long>, predictorIt, idealCacheComparator> cache;
-
+    long long curInDataIndex_;
     std::map<T, std::list<long long>> predictor;
     std::unordered_map<T, cacheIt> hashtab;
     public:
 
     idealCache(long long cacheSize, const std::vector<T>& requests);
     bool cacheLookupUpdate();
-    int updatePredictor(T data);
+    bool updatePredictor(T data);
     void updateCacheList(cacheIt it);
+    void eraseDataFromCache(hashIt it);
 };
 
 #include "idealCache.inl"
+}
