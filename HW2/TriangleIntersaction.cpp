@@ -1,24 +1,52 @@
-﻿// Triangle Intersaction.cpp : Defines the entry point for the application.
-//
-#include <iostream>
-#include "vector3d.hpp"
-#include "line3d.hpp"
+﻿#include <iostream>
+#include <random>
+#include <ctime>
+#include <cmath>
+#include <iomanip>
+#include "mathlib.h"
+#include "vector3d.h"
+#include "plane.h"
+#include "line3d.h"
+
+double** initMat(int size) {
+    srand(time(nullptr));
+    double** mat = new double*[size];
+    for (int i = 0; i < size; ++i) {
+        mat[i] = new double[size + 1];
+    }
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size + 1; ++j) {
+            std::cin >> mat[i][j];
+            //mat[i][j] = std::abs(rand() % 10);
+        }
+    }
+    return mat;
+}
+
+void print_Gaus_answ(std::pair<int, double**> res, int size) {
+    int rank = res.first;
+    double** mat = res.second;
+    std::setprecision(5);
+    if (rank == size) {
+        for (int i = 0; i < size; ++i) {
+            std::cout << mat[0][i] << std::endl;
+        }
+    }
+    else {
+        for (int i = 0; i < size; ++i) {
+            for (int j = 0; j < size - rank + 1; ++j) {
+                if (j < size - rank) {
+                    std::cout << mat[i][j] << " ";
+                } else {
+                    std::cout << "   " << mat[i][j];
+                }
+            }
+            std::cout << std::endl;
+        }
+    }
+}
 
 int main()
 {
-	Vector3D<double> test(11, 4, 3);
-	Vector3D<double> test2(12, 90, 1);
-	Vector3D<double> test3 = test2*0.5+test*2.;
-	//test3 = test^test2;
-	test3 = test3^test;
-	test3.point_print();
-	Line3D<double> first(test, 0.);
-	Line3D<double> second(test3, 100);
-	if (intersect(first, second) == linesIntersection::INTERSECT)
-		std::cout << "intersect";
-	if (intersect(first, second) == linesIntersection::NOINTERSECTION)
-		std::cout << "nointersect";
-	if (intersect(first, second) == linesIntersection::EQUAL)
-		std::cout << "equal";
-	return 0;
+    return 0;
 }
