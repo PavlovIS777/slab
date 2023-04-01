@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../inc/LFU.h
+list
+-
+unordered_map
+-
+queue
+-
+priorQueue.h
+../inc/priorQueue.h
+LFU.inl
+../inc/LFU.inl
+
+../inc/priorQueue.h
+map
+-
+array
+-
+priorQueue.inl
+../inc/priorQueue.inl
+
+../src/LFU.inl
+iostream
+-
+
+../src/priorQueue.inl
+iostream
+-
+
+/home/monkey/inf/slab/HW1/testSys/unittests/unittest.cpp
+LFU.h
+/home/monkey/inf/slab/HW1/testSys/unittests/LFU.h
+iostream
+-
+array
+-
+
